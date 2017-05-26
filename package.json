@@ -1,0 +1,33 @@
+{
+  "name": "da_mock",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DawnCHL/da_mock.git"
+  },
+  "author": "DawnChen",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.1.1",
+    "lodash": "^4.17.4",
+    "mongodb": "^2.2.26"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "config": "^1.25.1",
+    "del": "^1.1.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "run-sequence": "^1.0.2",
+    "webpack": "^2.4.1"
+  }
+}
