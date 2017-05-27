@@ -14,11 +14,13 @@
   "author": "DawnChen",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "koa": "^2.2.0",
     "koa-bodyparser": "^3.2.0",
     "koa-router": "^7.1.1",
     "lodash": "^4.17.4",
-    "mongodb": "^2.2.26"
+    "mongodb": "^2.2.26",
+    "winston": "^0.8.3"
   },
   "devDependencies": {
     "babel-plugin-syntax-async-functions": "^6.13.0",

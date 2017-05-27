@@ -4,6 +4,7 @@
 * node.js v6.2.0
 * koa.js v2.2.0
 * mongodb 
+
 ##准备
 在项目下打开终端输入
 ```

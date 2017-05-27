@@ -2,14 +2,13 @@
 
 // const _ = require('lodash')
 
+exports.InsertUrl = async (ctx, next) => {
+	console.log("ctx: ",ctx)
+	let serviceName = ctx.request.body.serviceName;
+	let apiUrl = ctx.request.body.apiUrl;
+	let method = ctx.request.body.method;
+	let resData = ctx.request.body.resData;
 
-/*
-	Insert new api to data base
-	{serverName} 	String   服务名
-	{apiUrl} 	   	String   请求地址
-	{method} 	   	String   请求方法 GET/POST
-	{response} 		Object   返回数据
-*/
-exports.InsertUrl = function (ctx) {
-	
+	let data = ctx.request.body;
+	ctx.body = await db.Data.insertOne(data)
 }
