@@ -1,14 +1,18 @@
-'use script'
+// 'use script'
+const db = require('../model/db.js');
 
-// const _ = require('lodash')
+
+// POST
+// {
+// 	"serviceName": "test",
+// 	"apiUrl": "/api/test",
+// 	"method": "GET",
+// 	"respond": {
+// 		"msg": 200
+// 	}
+// }
 
 exports.InsertUrl = async (ctx, next) => {
-	console.log("ctx: ",ctx)
-	let serviceName = ctx.request.body.serviceName;
-	let apiUrl = ctx.request.body.apiUrl;
-	let method = ctx.request.body.method;
-	let resData = ctx.request.body.resData;
-
 	let data = ctx.request.body;
-	ctx.body = await db.Data.insertOne(data)
+	ctx.body = await db.apiData.insertOne(data)
 }
