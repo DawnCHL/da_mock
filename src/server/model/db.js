@@ -1,13 +1,13 @@
 const MongoClient = require('mongodb').MongoClient;
 const config = require('config');
-const Model = require('./model.js')
+const OperationModule = require('./operationModel.js')
 let db;
 
 class Db {
 	async connect() {
 		if(!db) {
 			db = await MongoClient.connect(config.db.url)
-			this.apiData = new Model(db, "data")
+			this.apiData = new OperationModule(db, "api_data")
 		}
 	}
 }

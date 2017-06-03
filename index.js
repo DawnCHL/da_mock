@@ -9,8 +9,10 @@ const app = new Koa();
 app.use(bodyParser());
 const router = new Router();
 
-const Api_router = require('./src/server/router.js');
+const Api_router = require('./src/server/router/router.js');
+const Mock_router = require('./src/server/router/mockRouter.js');
 router.use('/api', Api_router.routes(), Api_router.allowedMethods());
+router.use('/mock', Mock_router.routes(), Mock_router.allowedMethods());
 app.use(router.routes());
 
 db.connect().then(() => {
@@ -18,5 +20,5 @@ db.connect().then(() => {
 		console.info(`Listening to http://localhost:${config.port}`);
 	});
 }).catch(err => {
-	console.error('ERR:', err);
+	console.error('DB CONNECT FAIL ,ERR:', err);
 });
