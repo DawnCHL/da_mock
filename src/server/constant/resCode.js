@@ -14,6 +14,7 @@ const code = {
 	"DATA_INSERT_FAIL": {codeName:"DATA_INSERT_FAIL",status:304,msg:"添加失败"},
 	"DATA_EXIST_INSERT_FAIL": {codeName:"DATA_EXIST_INSERT_FAIL",status:3041,msg:"已存在相同数据"},
 	"DATA_DELETE_FAIL": {codeName:"DATA_DELETE_FAIL",status:305,msg:"删除失败"},
+	"DATA_DELETE_AGAIN_FAIL": {codeName:"DATA_DELETE_AGAIN_FAIL",status:3051,msg:"该数据已不存在"},
 	"DATA_UPDATE_FAIL": {codeName:"DATA_UPDATE_FAIL",status:306,msg:"修改失败"}
 }
 

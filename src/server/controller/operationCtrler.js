@@ -1,6 +1,6 @@
 // 'use script'
 const db = require('../model/db.js');
-const resCode = require('../constant/resCode.js')
+const resCode = require('../constant/resCode.js');
 
 
 // POST
@@ -9,7 +9,7 @@ const resCode = require('../constant/resCode.js')
 // 	"apiUrl": "/api/test",
 // 	"method": "GET",
 // 	"respond": {
-// 		"msg": 200
+// 		"msg": "success"
 // 	}
 // }
 
@@ -94,4 +94,34 @@ exports.QueryUrlWithServiceName = async (ctx, next) => {
 				'tags': serviceName
 			}
 	ctx.body = await db.apiData.getUrlWithServiceName(tags)
+}
+
+exports.DeleteApi = async (ctx, next) => {
+	let id = ctx.query.id;
+	console.log(id)
+	ctx.body = await db.apiData.removeApi(id)
+}
+
+//POST
+//{
+//	"id": "123123123123123",
+//	"data":{
+//		"serviceName": "test",
+//		"apiUrl": "/api/test",
+//		"method": "GET",
+//		"respond": {
+//			"msg": "success"
+//		}
+//	}
+//}
+exports.UpdateApi = async (ctx, next) => {
+	let reqBody = ctx.request.body;
+	let id = reqBody.id,
+			apiName = reqBody.data.apiName,
+			serviceName = reqBody.data.serviceName,
+			apiUrl = reqBody.data.apiUrl,
+			method = reqBody.data.method,
+			respond = reqBody.data.respond;
+	console.log('@@@@@#####@@@@@',reqBody)
+	ctx.body = await db.apiData.updateApi(id, reqBody.data)
 }

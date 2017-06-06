@@ -17,4 +17,8 @@ router.post('/getApis', operation.QueryUrl);
 
 router.get('/getApis/:serviceName', operation.QueryUrlWithServiceName)
 
+router.get('/delete', operation.DeleteApi);
+
+router.post('/update', operation.UpdateApi);
+
 module.exports = router
