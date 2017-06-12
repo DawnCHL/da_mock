@@ -1,10 +1,12 @@
 
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var path = require('path');
-var webpack = require('webpack');
-
-var APP_PATH = path.resolve(__dirname, '../src/static/');
-var PUBLIC_PATH = '/public/';
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+// const config= require('config')
+const APP_PATH = path.resolve(__dirname, '../src/static/');
+const PUBLIC_PATH = path.resolve(__dirname, '../dist/src/static/app/');
+// console.log(process.env.NODE_ENV === 'production')
+// const isDev = (process.env.NODE_ENV === 'production') ? false : true;
 
 module.exports = {
   context: APP_PATH,
@@ -15,7 +17,8 @@ module.exports = {
   output: {
     filename: 'entry/[name].js',
     chunkFilename: 'chunk/[name]-[chunkhash:6].js',
-    publicPath: PUBLIC_PATH
+    publicPath: '../static/app'
+    // publicPath: PUBLIC_PATH
   },
   module: {
     loaders: [

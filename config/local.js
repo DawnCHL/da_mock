@@ -1,3 +1,4 @@
+
 module.exports = {
 	"host": "localhost",
 	"port": 8194,
@@ -8,8 +9,8 @@ module.exports = {
 		"errorLog": "../logs/errorLog",
 		"resLog": "../logs/resLog"
 	},
-	"view_path": "../src/view/",
-	"static_path": "../src/static/",
-	"pure_path": "../src/static/pure/",
+	"view_path": "../src/page/",
+	"static_path": "./src/static",
+	"pure_path": "./src/static/pure/",
 	"favicon_path": "../src/static/pure/favicon.ico"
 }

@@ -3,7 +3,8 @@ var gulp = require('gulp');
 gulp.task('copy', function () {
   return gulp.src([
       './src/static/pure/**/*',
-      './src/view/*'
+      './src/view/*',
+      './favicon.ico'
     ], {
       base: './src'
     })
