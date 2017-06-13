@@ -6,11 +6,11 @@ const bodyParser = require('koa-bodyparser');
 const config = require('config');
 const db = require('./src/server/model/db.js');
 const render = require('koa-views');
-// const serve = require('koa-static');
+const serve = require('koa-static');
 
 const app = new Koa();
+// app.use(serve("./src/static/app"))
 app.use(render(path.join(__dirname, "./src/page"), { default: 'html' }))
-   // .use(serve("./src/static/app"))
 	 .use(bodyParser());
 
 //web
@@ -27,6 +27,10 @@ const Mock_router = require('./src/server/router/mockRouter.js');
 router.use('/api', Api_router.routes(), Api_router.allowedMethods())
 			.use('/mock', Mock_router.routes(), Mock_router.allowedMethods());
 app.use(router.routes());
+
+app.use(serve(
+  path.join( __dirname,  config.static_path)
+))
 
 db.connect().then(() => {
 	app.listen(config.port, () => {

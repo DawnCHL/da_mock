@@ -17,7 +17,7 @@ module.exports = {
   output: {
     filename: 'entry/[name].js',
     chunkFilename: 'chunk/[name]-[chunkhash:6].js',
-    publicPath: '../static/app'
+    publicPath: '/'
     // publicPath: PUBLIC_PATH
   },
   module: {
@@ -28,7 +28,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: 'less!css'
+        loader: 'style!css!less?relativeUrls'
       },
       {
         test: /\.json$/,
@@ -41,10 +41,6 @@ module.exports = {
       {
         test: /\.css$/,
         loader: 'style!css'
-      },
-      {
-        test: /\.styl$/,
-        loader: 'style!css!stylus'
       }
     ]
   },
@@ -55,6 +51,6 @@ module.exports = {
       filename: '../../page/index.html'
     })
   ],
-  devtool: '#inline-source-map'
+  devtool: '#eval-source-ma'
 
 }

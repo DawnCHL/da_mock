@@ -11,8 +11,8 @@ var router = new VueRouter({
 
 var app = require("./app.vue");
 
-// require('../stylesheet/iconfont/iconfont.css')
-// require('../stylesheet/main.css')
+require('../css/iconfont/iconfont.css')
+require('../css/main.css')
 
 new fastclick(document.body)
 

@@ -10,7 +10,7 @@ module.exports = {
 		"resLog": "../logs/resLog"
 	},
 	"view_path": "../src/page/",
-	"static_path": "./src/static",
-	"pure_path": "./src/static/pure/",
+	"static_path": "./src/static/app",
+	"pure_path": "./src/static/pure",
 	"favicon_path": "../src/static/pure/favicon.ico"
 }

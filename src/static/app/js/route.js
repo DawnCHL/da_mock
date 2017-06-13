@@ -1,15 +1,13 @@
-module.exports = function(router) {
-	router.map({
-		'/': {
-			title: "Da Mock",
-			name: "home"
-		},    		
-		// For Not Found
-		'*': {
-			component: {
-				template: 'not found'
-			}
-		}
-	});
+const homeView = require('./view/home.vue')
 
-}
+module.exports =  [
+	{	path: '/',
+		component: homeView,
+		name: 'index'
+	},
+	{
+		path: '/home',
+		component: homeView,
+		name: 'index'
+	}
+]
