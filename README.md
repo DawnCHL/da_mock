@@ -3,6 +3,8 @@
 ### 工具
 * node.js v6.2.0
 * koa.js v2.2.0
+* vue v2.2.4 
+* vue-router v2.3.0
 * mongodb 
 
 ### 准备

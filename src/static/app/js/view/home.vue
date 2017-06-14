@@ -1,38 +1,55 @@
 <style>
-h2 {
+h1 {
+	text-align: center;
+	color: #ffc81f;
+	font-weight: lighter;
+}
+.btn {
+	margin-top: 150px; 
 	text-align: center;
 }
-.blockBtn {
-	width: 50%;
-	height: 50px;
-	background-color: #1874CD;
-	margin: 20px auto;
+
+#indexPage {
+	height: 100%;
+	overflow: hidden;
+}
+
+.logo{
 	text-align: center;
-	cursor: pointer;
+	width: 100%;
 }
-.blockBtn :hover {
-	background-color: #1E90FF;
+.logo > .large-logo{
+	width: 200px;
+	margin: 10% auto 0;
 }
-.blockBtn .btnFont {
-	text-decoration: none;
-	line-height: 50px;
-	color: #F5FFFA;
-}
-.disable{
-	cursor: not-allowed;
-}
+
 </style>
 
 
 <template>
 
 	<div class="content">
-		<h2>TITLE</h2>
+		
 		<div class="body">
-			<p>asdfasdf</p>
+
+			<div id="indexPage">
+				<div class="logo">
+					<img class="large-logo" src="/pure/image/da_logo.png">
+					<h1>Da  MocK</h1>
+				</div>
+				<div class="btn">
+					<div class='blockBtn'>
+						<router-link to='detail' tag='div' class='btnFont'>Start</router-link>
+					</div>
+					<a href="https://github.com/DawnCHL"  class='blockBtn'>
+						<div class='btnFont'>GitHub</div>
+					</a>
+				</div>
+			</div>
+
 		</div>
 		<div class="foot">
-			<a href="https://github.com/DawnCHL"><i class="iconfont icon-cloud_download"></i> https://github.com/DawnCHL</a>
+			
 		</div>
 	</div>
 

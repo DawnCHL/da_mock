@@ -1,22 +1,33 @@
 body{
-	background-color: #87CEFA
+	background-color: #222;
+	height: 100%;
 }
 p{
 	font-family: 'Microsoft Yahei';
 	font-size: 18px;
 }
-.content{
-	margin: 30px 10px;
+
+.blockBtn {
+	width: 10%;
+	height: 50px;
+	background-color: #ffc81f;
+	margin: 20px 50px;
+	text-align: center;
+	cursor: pointer;
+	display: inline-block;
+	text-decoration : none 
 }
-.body {
-	margin: 100px auto;
+.blockBtn :hover {
+	background-color: #ffff99;
 }
-.foot {
-	position: fixed;
-	bottom: 0px;
-	left: 2px;
-}
-.foot a {
+.blockBtn .btnFont {
 	text-decoration: none;
-	font-size: 14px;
+	line-height: 50px;
+	color: #222;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.disable{
+	cursor: not-allowed;
 }
