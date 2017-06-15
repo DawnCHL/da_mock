@@ -1,13 +1,19 @@
-const homeView = require('./view/home.vue')
+const indexView = require('./view/index/index.vue')
+const homeView = require('./view/home/home.vue')
 
 module.exports =  [
 	{	path: '/',
-		component: homeView,
+		component: indexView,
+		name: 'index'
+	},
+	{
+		path: '/index',
+		component: indexView,
 		name: 'index'
 	},
 	{
 		path: '/home',
 		component: homeView,
-		name: 'index'
+		name: 'home'
 	}
 ]

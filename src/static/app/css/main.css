@@ -6,7 +6,9 @@ p{
 	font-family: 'Microsoft Yahei';
 	font-size: 18px;
 }
-
+.content {
+	color: #FFFFF0;
+}
 .blockBtn {
 	width: 10%;
 	height: 50px;

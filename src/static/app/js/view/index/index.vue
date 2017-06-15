@@ -1,24 +1,25 @@
 <style>
-h1 {
+
+.index_content h1 {
 	text-align: center;
 	color: #ffc81f;
 	font-weight: lighter;
 }
-.btn {
+.index_content .btn {
 	margin-top: 150px; 
 	text-align: center;
 }
 
-#indexPage {
+.index_content #indexPage {
 	height: 100%;
 	overflow: hidden;
 }
 
-.logo{
+.index_content .logo{
 	text-align: center;
 	width: 100%;
 }
-.logo > .large-logo{
+.index_content  .logo > .large-logo{
 	width: 200px;
 	margin: 10% auto 0;
 }
@@ -28,7 +29,7 @@ h1 {
 
 <template>
 
-	<div class="content">
+	<div class="index_content">
 		
 		<div class="body">
 
@@ -39,7 +40,7 @@ h1 {
 				</div>
 				<div class="btn">
 					<div class='blockBtn'>
-						<router-link to='detail' tag='div' class='btnFont'>Start</router-link>
+						<router-link to='home' tag='div' class='btnFont'>Start</router-link>
 					</div>
 					<a href="https://github.com/DawnCHL"  class='blockBtn'>
 						<div class='btnFont'>GitHub</div>
