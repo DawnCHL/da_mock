@@ -25,6 +25,7 @@
     "koa-swig": "^2.2.1",
     "koa-views": "^5.0.2",
     "lodash": "^4.17.4",
+    "merge-defaults": "^0.2.1",
     "mongodb": "^2.2.26",
     "mongoose": "^4.10.4",
     "object-path": "^0.11.4",
