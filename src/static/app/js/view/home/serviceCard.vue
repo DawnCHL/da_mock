@@ -2,7 +2,7 @@
 	.card{
 		width: 24%;
 		display: inline-block;
-		margin: 10px 5px 10px 0;
+		margin: 10px 10px 0 0;
 	}
 	.card .context {
 		height: 300px;
@@ -17,6 +17,8 @@
 	<div class="card">
 		<div class="context">
 			<div class="title">{{item.apiName}}</div>
+			<div class="urlData"><a :href='url'>{{url}}</a></div>
+			<div class="respondData">{{item.respond}}</div>
 		</div>
 		
 	</div>
@@ -27,14 +29,16 @@
 		data: function () {
 			return {
 				searchType: 1,
-				item: {}
+				item: {},
+				url: ""
 			}
 		},
 		props:['type','data'],
 		created: function () {
 			this.searchType = this.$props.type;
-			this.item = this.$props.data
-			console.log('item: ',this.item)
+			this.item = this.$props.data;
+			console.log('item: ',this.item);
+			this.url = "/mock/" + this.item.serviceName + this.item.apiUrl
 		},
 		mounted: function () {
 			
