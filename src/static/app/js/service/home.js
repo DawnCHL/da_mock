@@ -2,7 +2,6 @@ var request = require('../lib/request.js');
 var op = require('object-path');
 
 exports.searchApi = function (options) {
-	console.log("====>",options)
   return new Promise(function (resolve, reject) {
     request.post('/api/getApis')
       .set('content-Type','application/json')

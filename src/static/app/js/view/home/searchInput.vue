@@ -32,6 +32,11 @@
 	font-weight: bold;
 }
 
+#searchInput #keyword{
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+}
 #searchInput #searchKeyword {
 	width: 350px;
 	padding: 5px 6px;
@@ -40,23 +45,29 @@
 	background-color: #FFFFF0;
 	height: 24px;
 	overflow: hidden;
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
 	border-style:  none;
 	line-height: 25px;
 	font-size: 20px;
 }
 
-
+#searchInput #skw_icon {
+	position: absolute;
+	display: inline;
+	top: 5px;
+	right: 5px;
+}
+#searchInput #skw_icon i{
+	font-size: 20px !important;
+	font-weight: bold;
+}
 </style>
 
 <template>
-	<div id="searchInput" >
+	<div id="searchInput" ref="searchType" :data-type="searchType" :data-data="searchType">
 		<div class="searchType" 
 					@mouseover="toggleShow" 
 					@mouseout="toggleShow">
-			<ul @mousewheel="scroll2Change">
+			<ul @mousewheel="scrolltoChange">
 				<li value="1" id="li1">Title</li>
 				<li value="2" id="li2">Url</li>
 			</ul>
@@ -64,17 +75,23 @@
 				<i class="icon iconfont icon-mouse_icon"></i>
 			</div>
 		</div>
-
-		<input id="searchKeyword" type="text" 
-					:placeholder='placeholderText' 
-					@keyup='inputChange'>
 		
+		<div id="keyword">
+			<input id="searchKeyword" type="text" 
+						:placeholder='placeholderText' 
+						@keyup='inputChange'>
+			<div id="skw_icon">
+				<i class="icon iconfont icon-search_icon"></i>
+			</div>
+		</div>
+
 		<div class="searchBtn"></div>
 	</div>
 </template>
 
 <script>
-	const homeAjax = require('../../service/home.js')
+	// const homeAjax = require('../../service/home.js')
+	const homeAjax = require('../../lib/handleAjax.js')
 	module.exports = {
 		data: function () {
 			return {
@@ -82,7 +99,8 @@
 				scrollState: true,
 				searchType: 1,
 				placeholderText: "search title",
-				hasSlash: false
+				hasSlash: false,
+				data: {}
 			}
 		},
 		mounted: function () {
@@ -102,7 +120,7 @@
 			}
 		},
 		methods: {
-			scroll2Change: function (e) {
+			scrolltoChange: function (e) {
 				let vm = this;
 				if (vm.scrollState){	
 					document.getElementById('li1').style.display = "none";
@@ -115,6 +133,7 @@
 					vm.scrollState = !vm.scrollState;
 					vm.searchType = 1
 				}
+				vm.$emit('scrolltoChange')
 			},
 			toggleShow: function (e) {
 				let vm = this;
@@ -140,9 +159,13 @@
 						data.apiUrl = apiarr.slice(1).join('/');	
 					}
 				} 
-				console.log(data)
+				// console.log(data)
 				if  (apistr != "" ){
-					let res = homeAjax.searchApi(data)
+					setTimeout(()=>{
+						let res = homeAjax.GetSearchRes(data)
+						console.log(res)	
+					},100)
+					
 				}
 			}
 		}

@@ -8,6 +8,7 @@
 	background-color: #ffc81f;
 	color: #222;
 	overflow: hidden;
+	z-index: 1000;
 }
 #headBar div {
 	height: 1em;

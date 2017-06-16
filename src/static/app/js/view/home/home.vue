@@ -5,8 +5,10 @@
 	margin: 45px 2%;
 	padding: 40px 20px 0;
 	overflow: hidden;
-
 	background-color: #404040;
+}
+.home_content .card_zone {
+	width: 100%;
 }
 </style>
 
@@ -20,11 +22,14 @@
 		<div class="body">
 
 			<div class="search_form">
-				<searhInput></searhInput>
+				<searhInput ref="searchType" v-on:scrolltoChange='getChanges'></searhInput>
 			</div>
 
 			<div class="card_zone">
-				<serviceCard></serviceCard>
+				<card :type='type'></card>
+				<card :type='type'></card>
+				<card :type='type'></card>
+				<card :type='type'></card>
 			</div>
 
 		</div>
@@ -39,19 +44,31 @@
 	module.exports = {
 		data: function () {
 			return {
-				status: 0
+				type: 1
 			}
 		},
 		mounted: function () {
-			console.log('gua')
+			this.getChanges();
+		},
+		watch: {
+			type: {
+				handler: function (nv) {
+					console.log("watch",this.type)
+				}
+			}
 		},
 		components: {
 			'headBar': require('../component/headBar.vue'),
 			'searhInput': require('./searchInput.vue'),
-			'serviceCard': require('./serviceCard.vue')
+			'card': require('./serviceCard.vue')
 		},
 		methods: {
-			
+			getChanges: function () {
+				let vm = this;
+				setTimeout(()=>{
+					vm.type = vm.$refs.searchType.searchType
+				},10)
+			}
 		}
 	}
 </script>
