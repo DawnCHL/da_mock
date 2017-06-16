@@ -63,7 +63,7 @@
 </style>
 
 <template>
-	<div id="searchInput" ref="searchType" :data-type="searchType" :data-data="searchType">
+	<div id="searchInput" ref="searchType" :data-type="searchType" :data-data="resData">
 		<div class="searchType" 
 					@mouseover="toggleShow" 
 					@mouseout="toggleShow">
@@ -91,7 +91,7 @@
 
 <script>
 	// const homeAjax = require('../../service/home.js')
-	const homeAjax = require('../../lib/handleAjax.js')
+	const handler = require('../../lib/handleAjax.js')
 	module.exports = {
 		data: function () {
 			return {
@@ -100,11 +100,11 @@
 				searchType: 1,
 				placeholderText: "search title",
 				hasSlash: false,
-				data: {}
+				resData: {}
 			}
 		},
 		mounted: function () {
-			
+
 		},
 		created: function () {
 			
@@ -161,12 +161,13 @@
 				} 
 				// console.log(data)
 				if  (apistr != "" ){
-					setTimeout(()=>{
-						let res = homeAjax.GetSearchRes(data)
-						console.log(res)	
-					},100)
+					// setTimeout(()=>{
+						let res = handler.GetSearchRes(data).apiArray
+						vm.resData = res;
+					// },100)
 					
 				}
+				vm.$emit('inputChange')
 			}
 		}
 	}

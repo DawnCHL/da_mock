@@ -16,7 +16,7 @@
 <template>
 	<div class="card">
 		<div class="context">
-			<div class="title"></div>
+			<div class="title">{{item.apiName}}</div>
 		</div>
 		
 	</div>
@@ -26,12 +26,15 @@
 	module.exports = {
 		data: function () {
 			return {
-				searchType: 1
+				searchType: 1,
+				item: {}
 			}
 		},
-		props:['type'],
+		props:['type','data'],
 		created: function () {
 			this.searchType = this.$props.type;
+			this.item = this.$props.data
+			console.log('item: ',this.item)
 		},
 		mounted: function () {
 			
