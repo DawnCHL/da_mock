@@ -9,16 +9,33 @@
 		background-color: #FFFFF0;
 		overflow: hidden;
 		border: 1px solid black;
-		
+		padding: 6px;
+	}
+	.card .context label {
+		width: 20%;
+		display: inline-block;
 	}
 </style>
 
 <template>
 	<div class="card">
 		<div class="context">
-			<div class="title">{{item.apiName}}</div>
-			<div class="urlData"><a :href='url'>{{url}}</a></div>
-			<div class="respondData">{{item.respond}}</div>
+			<div class="title">
+				<label>title: </label>
+				{{item.apiName}}
+			</div>
+			<div class="url">
+				<label>url: </label>
+				<a :href='url' target="_blank">{{url}}</a>
+			</div>
+			<div class="method">
+				<label>method: </label>
+				{{item.method}}
+			</div>
+			<div class="respond">
+				<label>respond: </label>
+				{{item.respond}}
+			</div>
 		</div>
 		
 	</div>
