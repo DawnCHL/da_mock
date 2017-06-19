@@ -42,6 +42,7 @@
 <script>
 	const handler = require('../../lib/handleAjax.js')
 	const HomeService = require('../../service/home.js')
+	
 	module.exports = {
 		data: function () {
 			return {
