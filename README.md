@@ -20,7 +20,7 @@ npm i
 
 2.在mongodb的bin文件夹打开终端，输入
 ```
-./mongod --dbpath ../data/
+mongod --dbpath ../data/
 ```
 #### 2.启动项目
 1.在项目下打开终端输入
@@ -34,3 +34,10 @@ gulp会编译前后端代码
 npm start
 ```
 即可启动项目
+
+
+####TODO
+
+1.弹窗、气泡卡片提示
+
+2.系统名下所有api列表页（增删改查）

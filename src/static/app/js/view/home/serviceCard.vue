@@ -93,14 +93,18 @@
 			<div class="respond">
 				<label>respond: </label>
 			</div>
+
 			<div class="jsonCode" v-show="!isEditing" >
-				<!-- <i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i> -->
+				<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>
 				<pre v-highlight="item.respond">Show This If No Value</pre>
 			</div>
-			<!-- <div class="editJson" v-show="isEditing">
+
+			<div class="editJson" v-show="isEditing">
 				<i title="save" class="icon iconfont icon-affirm_icon" @click='editJson'></i>
 				<textarea name="edit" class="edit">{{item.respond}}</textarea>
-			</div> -->
+			</div>
+
+			
 		</div>
 		
 	</div>
@@ -121,7 +125,7 @@
 		created: function () {
 			this.searchType = this.$props.type;
 			this.item = this.$props.data;
-			console.log('item: ',this.item);
+			// console.log('item: ',this.item);
 			this.url = "/mock/" + this.item.serviceName + this.item.apiUrl
 		},
 		directives: {
@@ -143,7 +147,23 @@
 		methods: {
 			editJson: function (e) {
 				let vm = this
+
+				if (vm.isEditing){
+
+					let val = eval('(' + e.target.parentElement.lastChild.innerHTML + ')');
+					console.log(val)
+					data = {
+						id: vm.item._id,
+						apiName: vm.item.apiName,
+						serviceName: vm.item.serviceName,
+						apiUrl: vm.item.apiUrl,
+						method: vm.item.method,
+						respond: val
+					}
+					console.log(data)
+				}
 				vm.isEditing = !vm.isEditing
+
 			},
 			checkDetail: function () {
 				let id = this.item._id
