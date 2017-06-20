@@ -4,7 +4,7 @@ var fastclick = require("fastclick")
 
 Vue.use(VueRouter);
 var routes = require("./route");
-console.log(routes)
+
 var router = new VueRouter({
 	routes: routes
 });

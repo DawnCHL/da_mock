@@ -79,7 +79,7 @@
 		<div id="keyword">
 			<input id="searchKeyword" type="text" 
 						:placeholder='placeholderText' 
-						@keyup='inputChange'>
+						@change='inputChange'>
 			<div id="skw_icon">
 				<i class="icon iconfont icon-search_icon"></i>
 			</div>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-	// const homeAjax = require('../../service/home.js')
+	const homeAjax = require('../../service/home.js')
 	const handler = require('../../lib/handleAjax.js')
 	module.exports = {
 		data: function () {
@@ -100,7 +100,7 @@
 				searchType: 1,
 				placeholderText: "search title",
 				hasSlash: false,
-				resData: {}
+				resData: []
 			}
 		},
 		mounted: function () {
@@ -116,6 +116,11 @@
 			searchType: {
 				handler: function (nv) {
 					this.placeholderText = (nv == 2) ? "search api" : "search title"
+				}
+			},
+			resData: {
+				handler: function () {
+					
 				}
 			}
 		},
@@ -159,14 +164,21 @@
 						data.apiUrl = apiarr.slice(1).join('/');	
 					}
 				} 
-				// console.log(data)
-				if  (apistr != "" ){
-					// setTimeout(()=>{
-						let res = handler.GetSearchRes(data).apiArray
-						vm.resData = res;
-					// },100)
-					
-				}
+				console.log(data)
+				
+					if  (apistr != "" ){
+						homeAjax.searchApi(data).then(function(res){
+							console.log("===>",res.data.apiArray)
+							setTimeout(()=>{
+								vm.resData = res.data.apiArray;
+							},10)
+						}, function (err) {
+							vm.resData = [];
+						})
+					}
+				
+						console.log("@@@",vm.resData)
+				
 				vm.$emit('inputChange')
 			}
 		}

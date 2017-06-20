@@ -12,6 +12,7 @@ exports.GetAllApis = function () {
 
 exports.GetSearchRes = function (data) {
   return HomeService.searchApi(data).then(function (res) {
+    console.log(res.data)
     return res.data;
   }, function (err) {
     return err;

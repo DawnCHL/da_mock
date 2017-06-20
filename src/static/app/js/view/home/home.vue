@@ -25,11 +25,11 @@
 		<div class="body">
 
 			<div class="search_form">
-				<searhInput ref="searchType" v-on:scrolltoChange='getChanges'></searhInput>
+				<searhInput ref="searchType" v-on:scrolltoChange='getChanges' v-on:inputChange='getNewData' ></searhInput>
 			</div>
 
-			<div class="card_zone" ref="searchType" v-on:inputChange='getNewData' >
-				<card v-for="data in list" :type='type' :data="data" key="data.id"></card>
+			<div class="card_zone" >
+				<card v-for="data in list" :type='type' :data="data" key="data.id" ></card>
 			</div>
 
 		</div>
@@ -55,7 +55,7 @@
 			this.getChanges();
 			// let res = handler.GetAllApis().apiArray;
 			HomeService.getAllapis().then(function (res) {
-  		  console.log('res: ',res)
+  		  // console.log('res: ',res)
   			vm.list = res.data.apiArray;
   		}, function (err) {
   			vm.list = []
@@ -74,10 +74,13 @@
 				let vm = this;
 				setTimeout(()=>{
 					vm.type = vm.$refs.searchType.searchType
+					// console.log('@@@',vm.$refs.searchType)
 				},10)
 			},
 			getNewData: function () {
+				let vm = this;
 				vm.list = vm.$refs.searchType.resData
+				// console.log('==>',vm.$refs.searchType.resData)
 			}
 		}
 	}
