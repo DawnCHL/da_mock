@@ -91,7 +91,8 @@
 
 <script>
 	const homeAjax = require('../../service/home.js')
-	const handler = require('../../lib/handleAjax.js')
+	// const handler = require('../../lib/handleAjax.js')
+	const hljs = require('highlight.js')
 	module.exports = {
 		data: function () {
 			return {
@@ -166,18 +167,19 @@
 				} 
 				console.log(data)
 				
-					if  (apistr != "" ){
-						homeAjax.searchApi(data).then(function(res){
-							console.log("===>",res.data.apiArray)
-							setTimeout(()=>{
-								vm.resData = res.data.apiArray;
-							},10)
-						}, function (err) {
-							vm.resData = [];
-						})
-					}
+				if (apistr != "" ){
+					homeAjax.searchApi(data).then(function(res){
+						console.log("===>",res.data.apiArray)
+						setTimeout(()=>{
+							vm.resData = res.data.apiArray;
+							vm.set(vm.resData, res.data.apiArray )
+						},10)
+					}, function (err) {
+						vm.resData = [];
+					})
+				}
 				
-						console.log("@@@",vm.resData)
+				console.log("@@@",vm.resData)
 				
 				vm.$emit('inputChange')
 			}

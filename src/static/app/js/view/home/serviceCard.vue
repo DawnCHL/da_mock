@@ -93,20 +93,15 @@
 			<div class="respond">
 				<label>respond: </label>
 			</div>
-
 			<div class="jsonCode" v-show="!isEditing" >
 				<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>
 				<pre v-highlight="item.respond">Show This If No Value</pre>
 			</div>
-
 			<div class="editJson" v-show="isEditing">
 				<i title="save" class="icon iconfont icon-affirm_icon" @click='editJson'></i>
 				<textarea name="edit" class="edit">{{item.respond}}</textarea>
-			</div>
-
-			
+			</div>			
 		</div>
-		
 	</div>
 </template>
 
