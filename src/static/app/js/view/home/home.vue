@@ -140,6 +140,9 @@
 		font-weight: bolder;
 		font-size: 23px !important;
 	}
+	.home_content .apiDetail{
+		height: auto;
+	}
 </style>
 
 
@@ -153,7 +156,7 @@
 
 			<div class="search_form">
 				<!-- <searhInput ref="searchType" v-on:scrolltoChange='getChanges' v-on:inputChange='getNewData' ></searhInput> -->
-				<div id="searchInput" ref="searchType" :data-type="searchType" :data-data="resData">
+				<div id="searchInput">
 					<div class="searchType" 
 								@mouseover="toggleShow" 
 								@mouseout="toggleShow">
@@ -169,7 +172,7 @@
 					<div id="keyword">
 						<input id="searchKeyword" type="text" 
 									:placeholder='placeholderText' 
-									@change='inputChange'>
+									@keyup='inputChange'>
 						<div id="skw_icon">
 							<i class="icon iconfont icon-search_icon"></i>
 						</div>
@@ -177,48 +180,11 @@
 					<div class="searchBtn"></div>
 				</div>
 			</div>
-
 			<div class="card_zone" >
-				<!-- <card v-for="data in list" :type='type' :data="data" key="data.id" ></card> -->
-				<div v-for="data in list" class="card" @click='checkDetail'>
-					<div class="context">
-						<div class="title">
-							<label>title: </label>
-							{{data.apiName}}
-						</div>
-						<div class="url">
-							<label>url: </label>
-							<a v-if="data.method == 'GET'" :href='"/mock/" + data.serviceName + data.apiUrl' target="_blank">{{"/mock/" + data.serviceName + data.apiUrl}}</a>
-							<span v-else>{{"/mock/" + data.serviceName + data.apiUrl}}</span>
-						</div>
-						<div class="service">
-							<label>service: </label>
-							<router-link to='index' tag='div' class='toThisService'>
-								<i class="icon iconfont icon-link_icon"></i> {{data.serviceName}}
-							</router-link>
-						</div>
-						<div class="method">
-							<label>method: </label>
-							{{data.method}}
-						</div>
-						<div class="respond">
-							<label>respond: </label>
-						</div>
-						<div class="jsonCode" v-show="!isEditing" >
-							<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>
-							<pre v-highlight="data.respond">Show This If No Value</pre>
-						</div>
-						<div class="editJson" v-show="isEditing">
-							<i title="save" class="icon iconfont icon-affirm_icon" @click='editJson'></i>
-							<textarea name="edit" class="edit">{{data.respond}}</textarea>
-						</div>			
-					</div>
-				</div>
-
+				<card v-for="detail in list" :detail="detail" key="detail.id" ref="card" @click='checkDetail'></card>
 			</div>
-
 		</div>
-
+		<modal class="apiDetail"></modal>
 	</div>
 
 </template>
@@ -247,6 +213,7 @@
 		mounted: function () {
 			let vm = this;
 			// this.getChanges();
+			vm.list = []
 			HomeService.getAllapis().then(function (res) {
   			vm.list = res.data.apiArray;
   		}, function (err) {
@@ -263,20 +230,8 @@
 		components: {
 			'headBar': require('../component/headBar.vue'),
 			// 'searhInput': require('./searchInput.vue'),
-			// 'card': require('./serviceCard.vue')
-		},
-		directives: {
-    	highlight: function(el, binding) {
-		    if (binding.value) {
-		      let value = null
-		      if (typeof(binding.value) === "string") {
-		          value = binding.value
-		      } else {
-		          value = JSON.stringify(binding.value, null, 4)
-		      }
-		      el.innerHTML = hljs.highlight("json", value, true).value
-		    }
-		  }
+			'card': require('./serviceCard.vue'),
+			'modal': require('../component/modal.vue')
 		},
 		methods: {
 			scrolltoChange: function (e) {
@@ -299,10 +254,10 @@
 			},
 			inputChange: function (e) {
 				let vm = this;
-				let data = {};
-				data.searchType = vm.searchType;
+				let reqData = {};
+				reqData.searchType = vm.searchType;
 				if ( vm.searchType == 1 ) {
-					data.apiName = document.getElementById('searchKeyword').value
+					reqData.apiName = document.getElementById('searchKeyword').value
 				} else {
 					var apistr = document.getElementById('searchKeyword').value
 					let apiarr
@@ -313,47 +268,28 @@
 					}
 					if (vm.hasSlash){
 						apiarr = apistr.split('/');
-						data.serviceName = apiarr[0];
-						data.apiUrl = apiarr.slice(1).join('/');	
+						reqData.serviceName = apiarr[0];
+						reqData.apiUrl = "/" + apiarr.slice(1).join('/');	
 					}
 				} 
-				console.log(data)
-				
+				vm.list = []
 				if (apistr != "" ){
-					HomeService.searchApi(data).then(function(res){
-						console.log("===>",res.data.apiArray)
+					console.log("reqData: ",reqData)
+					HomeService.searchApi(reqData).then(function(res){
+						// console.log("===>",res.data.apiArray)
 						setTimeout(()=>{
 							vm.list = res.data.apiArray;
-							// vm.set(vm.list, res.data.apiArray )
 						},10)
 					}, function (err) {
 						vm.list = [];
 					})
 				}
-				console.log("@@@",vm.list)
+				// console.log("@@@",vm.list)
 			},
-			editJson: function (e) {
-				let vm = this
-
-				if (vm.isEditing){
-
-					let val = eval('(' + e.target.parentElement.lastChild.innerHTML + ')');
-					console.log(val)
-					data = {
-						id: vm.item._id,
-						apiName: vm.item.apiName,
-						serviceName: vm.item.serviceName,
-						apiUrl: vm.item.apiUrl,
-						method: vm.item.method,
-						respond: val
-					}
-					console.log(data)
-				}
-				vm.isEditing = !vm.isEditing
-
-			},
-			checkDetail: function () {
-				let id = this.item._id
+			checkDetail: function (e) {
+				console.log(123)
+				console.log(this.$refs.card)
+				// vm.list = vm.$refs.card.id
 			}
 		}
 	}

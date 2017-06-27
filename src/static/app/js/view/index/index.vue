@@ -1,5 +1,7 @@
 <style>
-
+.index_content{	
+	background-color: #222;
+}
 .index_content h1 {
 	text-align: center;
 	color: #ffc81f;

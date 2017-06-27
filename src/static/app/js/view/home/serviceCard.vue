@@ -83,7 +83,8 @@
 			<div class="service">
 				<label>service: </label>
 				<router-link to='index' tag='div' class='toThisService'>
-					<i class="icon iconfont icon-link_icon"></i> {{item.serviceName}}
+					<i class="icon iconfont icon-link_icon"></i> 
+					{{item.serviceName}}
 				</router-link>
 			</div>
 			<div class="method">
@@ -93,14 +94,17 @@
 			<div class="respond">
 				<label>respond: </label>
 			</div>
-			<div class="jsonCode" v-show="!isEditing" >
-				<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>
+			<div class="jsonCode">
 				<pre v-highlight="item.respond">Show This If No Value</pre>
 			</div>
-			<div class="editJson" v-show="isEditing">
+			<!-- <div class="jsonCode" v-show="!isEditing" >
+				<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>
+				<pre v-highlight="item.respond">Show This If No Value</pre>
+			</div> -->
+			<!-- <div class="editJson" v-show="isEditing">
 				<i title="save" class="icon iconfont icon-affirm_icon" @click='editJson'></i>
 				<textarea name="edit" class="edit">{{item.respond}}</textarea>
-			</div>			
+			</div>	 -->		
 		</div>
 	</div>
 </template>
@@ -113,13 +117,13 @@
 				searchType: 1,
 				item: {},
 				url: "",
-				isEditing: false
+				isEditing: false,
 			}
 		},
-		props:['type','data'],
+		props:['type','detail'],
 		created: function () {
 			this.searchType = this.$props.type;
-			this.item = this.$props.data;
+			this.item = this.$props.detail;
 			// console.log('item: ',this.item);
 			this.url = "/mock/" + this.item.serviceName + this.item.apiUrl
 		},
@@ -161,7 +165,10 @@
 
 			},
 			checkDetail: function () {
-				let id = this.item._id
+				let vm = this;
+				vm.id = this.item._id
+				console.log(vm.id)
+				vm.$emit('checkDetail')
 			}
 		}
 	}

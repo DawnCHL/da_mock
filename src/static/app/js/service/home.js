@@ -18,10 +18,7 @@ exports.searchApi = function (options) {
   return new Promise(function (resolve, reject) {
     request.post('/api/getApis')
       .set('content-Type','application/json')
-      .send({
-        apiName: options.apiName,
-        searchType: options.searchType,
-      })
+      .send(options)
       .end(function (err, res) {
         if (err) {
           return reject(err);
