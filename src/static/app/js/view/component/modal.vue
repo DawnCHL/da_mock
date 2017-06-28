@@ -22,7 +22,8 @@
 		width: 800px;
 		position: absolute;
     left: 50%;
-    top: 50%;
+    top: 10%;
+    margin-top: 45px;
     transform: translateX(-50%);
     background: #fff;
     border-radius: 2px;
