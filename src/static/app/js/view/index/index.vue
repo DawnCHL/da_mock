@@ -42,7 +42,10 @@
 				</div>
 				<div class="btn">
 					<div class='blockBtn'>
-						<router-link to='home' tag='div' class='btnFont'>Start</router-link>
+						<router-link to='home' tag='div' class='btnFont'>Api List</router-link>
+					</div>
+					<div class='blockBtn'>
+						<router-link to='service' tag='div' class='btnFont'>Services</router-link>
 					</div>
 					<a href="https://github.com/DawnCHL"  class='blockBtn'>
 						<div class='btnFont'>GitHub</div>

@@ -3,7 +3,6 @@
 		width: 24%;
 		display: inline-block;
 		margin: 10px 10px 0 0;
-		
 	}
 	.card .context {
 		height: 300px;
@@ -12,6 +11,9 @@
 		border: 1px solid black;
 		padding: 6px;
 		border-radius: 4px;
+	}
+	.context:hover{
+		background-color: #FFF68F;
 	}
 	.card .context label {
 		width: 20%;
@@ -77,12 +79,13 @@
 			</div>
 			<div class="url">
 				<label>url: </label>
-				<a v-if="item.method == 'GET'" :href='url' target="_blank">{{url}}</a>
-				<span v-else>{{url}}</span>
+				<!--<a v-if="item.method == 'GET'" :href='url' target="_blank">{{url}}</a>
+				<span v-else>{{url}}</span>-->
+				<span>{{url}}</span>
 			</div>
 			<div class="service">
 				<label>service: </label>
-				<router-link to='index' tag='div' class='toThisService'>
+				<router-link :to="'/service/'+item.serviceName" tag='div' class='toThisService'>
 					<i class="icon iconfont icon-link_icon"></i> 
 					{{item.serviceName}}
 				</router-link>
@@ -95,7 +98,7 @@
 				<label>respond: </label>
 			</div>
 			<div class="jsonCode">
-				<pre v-highlight="item.respond">Show This If No Value</pre>
+				<pre v-highlight="item.respond"></pre>
 			</div>
 			<!-- <div class="jsonCode" v-show="!isEditing" >
 				<i title="edit" class="icon iconfont icon-edit_icon" @click='editJson'></i>

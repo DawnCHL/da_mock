@@ -73,30 +73,22 @@
 	font-size: 20px !important;
 	font-weight: bold;
 }
-	.card{
-		width: 24%;
+	
+	.home_content .apiDetail{
+		height: auto;
+	}
+	.apiDetail label {
+		width: 10%;
 		display: inline-block;
-		margin: 10px 10px 0 0;
-		
+		text-align: right;
+		margin: 0 10px;
 	}
-	.card .context {
-		height: 300px;
-		background-color: #FFFFF0;
-		overflow: hidden;
-		border: 1px solid black;
-		padding: 6px;
-		border-radius: 4px;
-	}
-	.card .context label {
-		width: 20%;
+	.respond {
+		resize: none;
+		border-radius: 2px;
 		display: inline-block;
 	}
-	.card .context .service .toThisService {
-		display: inline-block;
-		cursor: pointer;
-		color: #31B0D5;
-	}
-	.card .jsonCode{
+	.jsonCode{
 		font-family: serif;
 		background-color: #2D2D2D;
 		color: #FFF;
@@ -107,42 +99,6 @@
 		height: 60%;
 		overflow-y: auto;
 	}
-	.card .jsonCode i{
-		color: #FFF;
-		float: right;
-		cursor: pointer;
-	}
-	.card .editJson{
-		font-family: serif;
-		color: #FFF;
-		border-radius: 4px;
-		padding: 5px;
-		margin: 5px 0;
-		display: block;
-		height: 60%;
-		position: relative;
-	}
-	.card .editJson .edit{
-		width: 98%;
-		height: 85%;
-		resize: none;
-		padding: 1em 5px 1em;
-		border-radius: 4px;
-		display: block;
-	}
-	.card .editJson i{
-		float: right;
-		cursor: pointer;
-		position: absolute;
-		top: 8px;
-		right: 8px;
-		color: #449d44;
-		font-weight: bolder;
-		font-size: 23px !important;
-	}
-	.home_content .apiDetail{
-		height: auto;
-	}
 </style>
 
 
@@ -150,7 +106,7 @@
 
 	<div class="home_content">
 		
-		<headBar></headBar>
+		<headBar checkTab="home"></headBar>
 
 		<div class="body">
 
@@ -181,10 +137,58 @@
 				</div>
 			</div>
 			<div class="card_zone" >
-				<card v-for="detail in list" :detail="detail" key="detail.id" ref="card" @click='checkDetail'></card>
+				<card v-for="detail in list" :detail="detail" :key="detail.id" ref="card" @checkDetail='checkDetail(detail)'></card>
 			</div>
 		</div>
-		<modal class="apiDetail"></modal>
+		
+		<D-modal class="apiDetail" title="Edit Api" v-if="showModal">
+			<span slot="context">
+				<form>
+					<div class="rol">
+						<label>title</label>
+						<input type="text" class="textInput" name="title" id="title"  :value="editData.apiName"></input>
+					</div>
+					<div class="rol">
+						<label>url</label>
+						<input type="text" class="textInput" name="url" id="url" :value="editData.apiUrl"></input>
+					</div>
+					<div class="rol">
+						<label>service</label>
+						<input type="text" class="textInput" name="service" id="service" :value="editData.serviceName"></input>
+					</div>
+					<div class="rol">
+						<label>method</label>
+
+						<!--<D-radio name="method" val="1" style="display:none">GET</D-radio>
+						<D-radio name="method" val="2" style="display:none">POST</D-radio>-->
+
+						<input type="radio" class="textInput" name="method" value="GET" :checked="editData.method=='GET'?'checked':''">GET</input>
+						<input type="radio" class="textInput" name="method" value="POST" :checked="editData.method=='POST'?'checked':''">POST</input>
+						<input type="radio" class="textInput" name="method" value="PUT" :checked="editData.method=='PUT'?'checked':''">PUT</input>
+						<input type="radio" class="textInput" name="method" value="DEL" :checked="editData.method=='DEL'?'checked':''">DEL</input>
+					</div>
+					<div class="rol">
+						<label style="vertical-align:top">respond</label>
+						<div class="jsonCode" v-show="false">
+							<pre v-highlight="editData.respond"></pre>
+						</div>
+						<textarea name="respond" id="respond" class="respond textArea" rows="8" cols="65">{{editData.respond}}</textarea>
+					</div>
+				</form>
+			</span>
+			<div slot="footer" style="overflow:hidden">
+				<div style="float:right;">
+					<button class="D-btn D-btn-red" @click="closeEdit">cancel</button>
+					<button class="D-btn D-btn-green" @click="save">confirm</button>
+				</div>
+			</div>
+		</D-modal>
+		
+		<!--<edit-api :data="editData"
+				  className="apiDetail"
+				  title="Edit Api"
+				  parentVm="self">
+		</edit-api>-->
 	</div>
 
 </template>
@@ -197,6 +201,7 @@
 	module.exports = {
 		data: function () {
 			return {
+				self: this,
 				type: 1,
 				list: [],
 				showMouse: false,
@@ -207,7 +212,9 @@
 				resData: [],
 				item: {},
 				url: "",
-				isEditing: false
+				isEditing: false,
+				showModal: false,
+				editData:{}
 			}
 		},
 		mounted: function () {
@@ -216,10 +223,10 @@
 			vm.list = []
 			HomeService.getAllapis().then(function (res) {
   			vm.list = res.data.apiArray;
-  		}, function (err) {
-  			vm.list = []
-  		})
-		},
+  			}, function (err) {
+  				vm.list = []
+  			})
+		},	
 		watch: {
 			searchType: {
 				handler: function (nv) {
@@ -231,7 +238,22 @@
 			'headBar': require('../component/headBar.vue'),
 			// 'searhInput': require('./searchInput.vue'),
 			'card': require('./serviceCard.vue'),
-			'modal': require('../component/modal.vue')
+			'D-modal': require('../component/modal.vue'),
+			'D-radio': require('../component/radio.vue'),
+			'edit-api':require('./edit_api.vue')
+		},
+		directives: {
+    		highlight: function(el, binding) {
+		    	if (binding.value) {
+		    	  let value = null
+		    	  if (typeof(binding.value) === "string") {
+		    	      value = binding.value
+		    	  } else {
+		    	      value = JSON.stringify(binding.value, null, 4)
+		    	  }
+		    	  el.innerHTML = hljs.highlight("json", value, true).value
+		    	}
+		  	}
 		},
 		methods: {
 			scrolltoChange: function (e) {
@@ -276,7 +298,6 @@
 				if (apistr != "" ){
 					console.log("reqData: ",reqData)
 					HomeService.searchApi(reqData).then(function(res){
-						// console.log("===>",res.data.apiArray)
 						setTimeout(()=>{
 							vm.list = res.data.apiArray;
 						},10)
@@ -284,12 +305,49 @@
 						vm.list = [];
 					})
 				}
-				// console.log("@@@",vm.list)
 			},
-			checkDetail: function (e) {
-				console.log(123)
-				console.log(this.$refs.card)
-				// vm.list = vm.$refs.card.id
+			checkDetail: function (detail) {
+				console.log('==>',detail)
+				this.showModal = true;
+				this.editData = detail;
+				let respond = this.editData.respond;
+				this.editData.respondData = JSON.stringify(respond);
+			},
+			closeEdit:function () {
+				this.showModal = false;
+			},
+			save:function () {
+				let vm = this;
+				let respondData = eval('(' + document.getElementById('respond').value + ')');
+				console.log( 'method',document.getElementsByName('method') )
+				let $method= document.getElementsByName('method');
+				for(let i=0; i< $method.length; i++) {
+					if ($method[i].checked == true){
+						var method_radio = $method[i].value;
+						break;
+					}
+				}
+				let reqdata = {
+			    "id": this.editData._id,
+			    "data":{
+			    	"serviceName": document.getElementById('service').value,
+			    	"apiUrl": document.getElementById('url').value,
+			    	"apiName": document.getElementById('title').value,
+			    	"method": method_radio,
+			    	"respond": respondData,
+			    	}
+			    }
+				HomeService.editApi(reqdata).then(function (res) {
+					vm.list = []
+					HomeService.getAllapis().then(function (res) {
+  					vm.list = res.data.apiArray;
+					vm.showModal = false;
+  					}, function (err) {
+  						vm.list = []
+  					})  
+  				}, function (err) {
+					  alert('err!')
+  				})
 			}
 		}
 	}

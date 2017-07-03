@@ -1,5 +1,5 @@
 <style>
-	.modal{
+	.D-modal{
 		top: 0;
     right: 0;
     bottom: 0;
@@ -7,7 +7,7 @@
     position: fixed;
     overflow: auto;
 	}
-	.modal .modalShade {
+	.D-modal .modalShade {
     position: fixed;
     left: 0;
     top: 0;
@@ -16,8 +16,9 @@
     opacity: .5;
     background: #000;
     z-index: 999;
+	overflow-y: hidden;
 	}
-	.modal .modalBox {
+	.D-modal .modalBox {
 		z-index: 1000;
 		width: 800px;
 		position: absolute;
@@ -31,30 +32,38 @@
     box-sizing: border-box;
     margin-bottom: 50px;
 	}
-	.modal .modalBox .modalHead{
+	.D-modal .modalBox .modalHead{
 		height: 25%;
-		width: inherit;
+		margin: 10px;
+		padding: 5px;
+		font-size: 24px;
+		font-weight: bold;
 	}
-	.modal .modalBox .modalContext{
+	.D-modal .modalBox .modalContext{
 		height: 45%;
-		width: inherit;
+		margin: 10px;
+		padding: 5px;
 	}
-	.modal .modalBox .modalFoot{
+	.D-modal .modalBox .modalFooter{
 		height: 25%;
-		width: inherit;
+		margin: 10px;
+		padding: 5px;
+		font-size: 16px;
 	}
 </style>
 
 <template>
 
-	<div class="modal">
+	<div class="D-modal">
 		<div class="modalShade"></div>
 		<div class="modalBox">
-			<div class="modalHead">
-				123
+			<div class="modalHead">{{Dtitle}}</div>
+			<div class="modalContext">
+				<slot name="context"></slot>
 			</div>
-			<div class="modalContext">qwer</div>
-			<div class="modalFoot">ASC</div>
+			<div class="modalFooter">
+				<slot name="footer"></slot>
+			</div>
 		</div>
 	</div>
 
@@ -64,8 +73,12 @@
 	module.exports = {
 		data: function () {
 			return {
-				
+				Dtitle: ""
 			}
+		},
+		props:['title'],
+		created: function () {
+			this.Dtitle = this.$props.title;
 		},
 		mounted: function () {
 			
