@@ -5,7 +5,7 @@
 
 <template>
 
-  <div>
+  <div id="main_context">
     <router-view></router-view>
   </div>
 </template>
