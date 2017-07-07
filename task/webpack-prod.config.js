@@ -21,26 +21,23 @@ module.exports = {
     // publicPath: PUBLIC_PATH
   },
   module: {
-    loaders: [
+   rules: [
       {
-        test: /.vue$/,
-        loader: 'vue'
-      },
-      {
-        test: /\.less$/,
-        loader: 'style!css!less?relativeUrls'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test: /\.(png|jpg|gif|jpeg|otf|eot|svg|ttf|woff|woff2)(\?\S+)?$/,
-        loader: 'file?name=asset/[hash].[ext]'
-      },
-      {
+         test: /\.(png|jpg|gif|jpeg|otf|eot|svg|ttf|woff|woff2)$/,
+         use: [
+           'file-loader'
+         ]
+      },{
         test: /\.css$/,
-        loader: 'style!css'
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },{
+        test: /\.vue$/,
+        use: [
+          'vue-loader'
+        ]
       }
     ]
   },
@@ -50,7 +47,6 @@ module.exports = {
       template: '../view/index.html',
       filename: '../../page/index.html'
     })
-  ],
-  devtool: '#eval-source-ma'
+  ]
 
 }

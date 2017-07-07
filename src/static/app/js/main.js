@@ -1,6 +1,10 @@
-var Vue = require("vue");
-var VueRouter = require("vue-router");
-var fastclick = require("fastclick")
+// var Vue = require("vue");
+// var VueRouter = require("vue-router");
+// var fastclick = require("fastclick")
+
+import Vue from "vue"
+import VueRouter from "vue-router"
+import fastclick from "fastclick"
 
 Vue.use(VueRouter);
 var routes = require("./route");
