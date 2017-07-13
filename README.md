@@ -42,13 +42,33 @@ npm start
 ```
 即可启动项目
 
-#### >DONE<
-基本增删改查功能
+## Docker 环境
+
+#### 1.打开数据库
+docker 环境中启动需要有个运行 mongo 的 image， 运行时将该 container 命名，并在 config/production.js 中将数据库连接地址修改成 container 的名字。
+```
+docker run -p 27017:27017 -v /data:/data/db --name apiDB -d daocloud.io/mongo
+```
+#### 2.启动项目
+先编译项目：
+```
+gulp
+```
+然后构建 da-mock 的 image。运行 image 时，需连接到 mongodb 的 container。
+```
+docker run -p 8194:8194 --name damock --link apiDB image_id
+```
+用这条命令启动，可在 localhost 中访问到运行在 docker 中的 da-mock。
+
+
+
 
 #### >TODO<
 
-1.错误的前端提示
+1.前端的错误提示
 
 2.数据库权限处理
 
 3.mock带参数时的返回
+
+4.加日志

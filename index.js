@@ -3,11 +3,12 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const router = new Router();
 const bodyParser = require('koa-bodyparser');
-const config = require('config');
+// const config = require('config');
 const db = require('./src/server/model/db.js');
 const render = require('koa-views');
 const serve = require('koa-static');
 const mount = require('koa-mount');
+const config = require('./config/local.js')
 
 
 const app = new Koa();
@@ -37,12 +38,22 @@ app.use(mount('/static',
  )).use(mount('/pure',
     serve(path.join( __dirname, config.pure_path))
  ));
+// app.use(mount('/static',
+//     serve(path.join( __dirname, config.get('static_path')))
+//  )).use(mount('/pure',
+//     serve(path.join( __dirname, config.get('pure_path')))
+//  ));
 
 
 db.connect().then(() => {
 	app.listen(config.port, () => {
 		console.info(`Listening to http://localhost:${config.port}`);
+		console.info("process.env.NODE_ENV=", process.env.NODE_ENV)
 	});
 }).catch(err => {
+    app.listen(config.port, () => {
+		console.info(`Listening to http://localhost:${config.port}`);
+		console.info("process.env.NODE_ENV=", process.env.NODE_ENV)
+	});
 	console.error('DB CONNECT FAIL ,ERR:', err);
 });

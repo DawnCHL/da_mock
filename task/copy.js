@@ -4,7 +4,8 @@ gulp.task('copy', function () {
   return gulp.src([
       './src/static/pure/**/*',
       './src/view/*',
-      './favicon.ico'
+      './favicon.ico',
+      './config/*'
     ], {
       base: './src'
     })
