@@ -6,9 +6,10 @@ require('./task/clean.js');
 require('./task/copy.js');
 require('./task/babel.js');
 require('./task/webpack.js');
+require('./task/flow.js');
 
 gulp.task('dev', function () {
-  return sequence('clean','copy', 'babel1', 'babel2','webpack-dev');
+  return sequence('clean','copy', 'babel1', 'babel2','flow','webpack-dev');
 });
 
 gulp.task('prod', function () {

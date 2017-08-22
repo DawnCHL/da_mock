@@ -1,4 +1,5 @@
-// 'use script'
+// @flow
+
 const db = require('../model/db.js');
 const resCode = require('../constant/resCode.js');
 
@@ -13,7 +14,7 @@ const resCode = require('../constant/resCode.js');
 // 	}
 // }
 
-exports.InsertUrl = async (ctx, next) => {
+exports.InsertUrl = async (ctx:any, next:any) => {
 	let data = ctx.request.body;
 	let apiName = data.apiName,
 			serviceName = data.serviceName,
@@ -43,11 +44,11 @@ exports.InsertUrl = async (ctx, next) => {
 	ctx.body = await db.apiData.insertOne(data)
 }
 
-exports.QueryAllUrl = async (ctx, next) => {
+exports.QueryAllUrl = async (ctx:any, next:any) => {
 	ctx.body = await db.apiData.getAllApi()
 }
 
-exports.QueryAllServiceName = async (ctx, next) => {
+exports.QueryAllServiceName = async (ctx:any, next:any) => {
 	ctx.body = await db.apiData.getAllServiceName()
 }
 
@@ -60,7 +61,7 @@ exports.QueryAllServiceName = async (ctx, next) => {
 // }
 // searchType: 1 - 根据标题搜索
 // 						 2 - 根据Url搜索
-exports.QueryUrl = async (ctx, next) => {
+exports.QueryUrl = async (ctx:any, next:any) => {
 	let data = ctx.request.body;
 	let serviceName = data.serviceName ? data.serviceName :"",
 			apiUrl = data.apiUrl ? data.apiUrl :"",
@@ -88,7 +89,7 @@ exports.QueryUrl = async (ctx, next) => {
 	ctx.body = res
 }
 
-exports.QueryUrlWithServiceName = async (ctx, next) => {
+exports.QueryUrlWithServiceName = async (ctx:any, next:any) => {
 	let serviceName = ctx.params.serviceName,
 			tags = {
 				'tags': serviceName
@@ -96,7 +97,7 @@ exports.QueryUrlWithServiceName = async (ctx, next) => {
 	ctx.body = await db.apiData.getUrlWithServiceName(tags)
 }
 
-exports.DeleteApi = async (ctx, next) => {
+exports.DeleteApi = async (ctx:any, next:any) => {
 	let id = ctx.query.id;
 	console.log(id)
 	ctx.body = await db.apiData.removeApi(id)
@@ -114,7 +115,7 @@ exports.DeleteApi = async (ctx, next) => {
 //		}
 //	}
 //}
-exports.UpdateApi = async (ctx, next) => {
+exports.UpdateApi = async (ctx:any, next:any) => {
 	let reqBody = ctx.request.body;
 	let id = reqBody.id,
 			apiName = reqBody.data.apiName,

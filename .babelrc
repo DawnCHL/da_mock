@@ -1,0 +1,7 @@
+{
+  "presets": ["flow"],
+  "ignore": [
+    "dist/*.js",
+    "packages/**/*.js"
+  ]
+}

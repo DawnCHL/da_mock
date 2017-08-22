@@ -1,8 +1,9 @@
-const _ = require('lodash')
+// @flow
+
 const db = require('../model/db.js');
 const resCode = require('../constant/resCode.js')
 
-exports.MockGetQuery = async (ctx, next) => {
+exports.MockGetQuery = async (ctx: any, next: any) => {
 	let reqUrl = ctx.url,
 			serviceName = ctx.params.serviceName,
 			api = reqUrl.split('/').slice(3).join('/'),

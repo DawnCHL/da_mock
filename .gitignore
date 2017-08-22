@@ -6,3 +6,6 @@ dist
 # 编辑器文件
 .idea
 .tag
+
+#logs
+*.log
